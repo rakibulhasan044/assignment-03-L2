@@ -16,17 +16,17 @@ const handleValidationError = (
     }
 
     return {
-        path: 'unknown',
-        message: "An unknown validation error occurred"
-    }
+      path: 'unknown',
+      message: 'An unknown validation error occurred',
+    };
   });
 
   const statusCode = 400;
   return {
     statusCode,
-    message: "Validation error",
-    errorSources
-  }
+    message: 'Validation error',
+    errorSources,
+  };
 };
 
-export default handleValidationError
+export default handleValidationError;

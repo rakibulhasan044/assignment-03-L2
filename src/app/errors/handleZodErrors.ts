@@ -16,4 +16,4 @@ const handleZodError = (zodErr: ZodError): TGenericErrorResponse => {
   };
 };
 
-export default handleZodError
+export default handleZodError;
