@@ -7,7 +7,16 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 
 const auth = (...requiredRoles: TUserRole[]) => {
   return catchAsync(async (req, res, next) => {
-    const token = req.headers.authorization;
+    // const token = req.headers.authorization;
+
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      throw new AppError(401, 'Unauthorized request');
+    }
+
+    // Extract the token after "Bearer "
+    const token = authHeader.split(' ')[1];
 
     if (!token) {
       throw new AppError(401, 'Unauthorized request');
@@ -18,8 +27,8 @@ const auth = (...requiredRoles: TUserRole[]) => {
       config.jwt_access_secret as string,
     ) as JwtPayload;
 
-    const { role, userId } = decoded;
-    const user = await User.findById(userId);
+    const { role, email } = decoded;
+    const user = await User.findOne({ email: email });
     if (!user) {
       throw new AppError(404, 'User not found');
     }

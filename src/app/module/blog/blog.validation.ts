@@ -12,7 +12,6 @@ const updateBlogValidationSchema = z.object({
   body: z.object({
     title: z.string({ message: 'Blog title is required' }).optional(),
     content: z.string({ message: 'Blog content is required' }).optional(),
-    author: z.string({ message: 'Author id is required' }),
   }),
 });
 

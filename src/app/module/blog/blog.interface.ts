@@ -6,3 +6,11 @@ export type TBlog = {
   author: Types.ObjectId;
   isPublished?: boolean;
 };
+
+interface IUser {
+  email: string;
+}
+
+export interface PopulatedBlog extends Omit<TBlog, 'author'> {
+  author: IUser;
+}

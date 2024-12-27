@@ -5,7 +5,9 @@ import { TLoginUser } from './auth.interface';
 import { createToken } from './auth.utils';
 
 const loginUser = async (payload: TLoginUser) => {
-  const user = await User.findById(payload?.id).select('+password');
+  const user = await User.findOne({ email: payload?.email }).select(
+    '+password',
+  );
   if (!user) {
     throw new AppError(404, 'User not found !!');
   }
@@ -21,7 +23,7 @@ const loginUser = async (payload: TLoginUser) => {
   }
 
   const jwtPayload = {
-    userId: user.id,
+    email: user.email,
     role: user.role as string,
   };
 
